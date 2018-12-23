@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<title>Bootstrap Example</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<script>
+function goPage(page){
+	document.form01.pageNum.value=page;
+	alert(document.form01.pageNum.value);
+	document.form01.submit();
+}
+
+</script>
+<div class="container">
+<form name="form01" method="get"  id="form01" action="/list">
+<input type="hidden" name="pageNum" value=""/>
+</form>
+<h2>상품테이블</h2>
+
+<table class="table table-striped">
+<thead>
+<tr>
+<th>고유번호</th>
+<th>등록일</th>
+<th>회원명</th>
+<th>이미지</th>
+<th>분류</th>
+<th>상태</th>
+<th>반려사유</th>
+<th>보류사유</th>
+<th>판매가</th>
+<th>보상가</th>
+<th>수정</th>
+<th>삭제</th>
+</tr>
+</thead>
+<tbody>
+
+<% data.forEach(function (item,index){ %>
+<tr>
+<td>
+<%= item.sharing_prod_seq %>
+</td>
+<td>
+<%= item.create_date_str %>
+</td>
+<td>
+<a href='/detail/<%= item.sharing_prod_seq %>'><%= item.name %></a>
+</td>
+<td>
+<img src="<%=img_path %>/<%= item.photo_path %>" width="100px" height="100px"/>
+</td>
+<td>
+<%if(item.product_type == "B"){ %>
+가방
+<%}else{ %>
+의류
+<%} %>
+</td>
+<td>
+<%if(item.status == "09"){ %>
+통과
+<%}else if(item.status == "99"){ %>
+반려
+<%}else{ %>보류<%} %>
+</td>
+<td><%=item.secondRejectCdStr %></td>
+<td><%=item.secondReadyReasonStr %></td>
+<td>
+<a href="/delete/<%= item.sharing_prod_seq %>">삭제</a>
+</td>
+<td>
+<a href="/edit/<%= item.sharing_prod_seq %>">수정</a>
+</td>
+</tr>
+<% })%>
+</tbody>
+</table>
+</div>
+
+
+<br>
+<br>
+
+
+<div class="container">
+<ul class="pager">
+
+
+
+<%
+var curSet = pasing.curSet
+var endPage = pasing.endPage
+var startPage = pasing.startPage
+var totalSet = pasing.totalSet
+var totalPage = pasing.totalPage
+var page_list_size = pasing.page_list_size
+var page_size = pasing.page_size
+var curPage = pasing.curPage
+%>
+
+
+<%
+if(curSet > 1){
+%>
+
+<li value=(startPage -1) class="previous">
+<a href="javascript:goPage('<%= ( startPage - 1) %>');">이전페이지</a>
+</li>
+
+<%
+}
+%>
+
+
+<%
+for(var i = startPage; i <= endPage; i++){
+if(i > totalPage){break;}
+
+if(i == curPage){
+%>
+<li value=<%= i %> class='' >
+<a href="javascript:goPage('<%= i %>');">
+<%= i %>
+</a>
+</li>
+
+<%
+}else{
+%>
+
+<li value=<%= i %> class='active' >
+<a href="javascript:goPage('<%= i %>');">
+<%= i %>
+</a>
+</li>
+
+
+<%
+}
+%>
+
+<%
+}
+%>
+
+<%
+if(curSet < totalSet){
+%>
+<li value=( endPage + 1) class="next">
+<a href='/pasing/<%= ( endPage + 1) %>'>다음페이지</a>
+</li>
+<%
+}
+%>
+
+</ul>
+</div>
+
+<br>
+<br>
+
+</body>
+
+</html>
+
