@@ -1,7 +1,8 @@
 var mysql = require('mysql');
  
 module.exports = function () {
-  var config = require('./config/db_config.json');    // ./는 현재 디렉토리를 나타냅니다
+	console.log('dddd:'+process.env.NODE_ENV);
+  var config = require('./config/dev_db_config.json');    // ./는 현재 디렉토리를 나타냅니다
   var pool = mysql.createPool({
     host: config.host,
     user: config.user,

@@ -2,5 +2,6 @@ eclipse.preferences.version=1
 encoding//views/admin/footer.ejs=UTF-8
 encoding//views/admin/form.ejs=UTF-8
 encoding//views/admin/header.ejs=UTF-8
+encoding//views/admin/header2.ejs=UTF-8
 encoding//views/admin/list.ejs=UTF-8
 encoding//views/admin/products.ejs=UTF-8

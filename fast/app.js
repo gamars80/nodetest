@@ -1,9 +1,9 @@
+process.env.NODE_ENV = ( process.env.NODE_ENV && ( process.env.NODE_ENV ).trim().toLowerCase() == 'production' ) ? 'production' : 'development';
+
 var express = require('express');
 var path = require('path');
 var logger= require('morgan');
 var bodyParser = require('body-parser'); 
-
-
 var admin = require('./routes/admin');
 //상품리스트 게시판~!
 var productRouter = require('./routes/product');
